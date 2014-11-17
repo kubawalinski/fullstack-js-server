@@ -30,6 +30,22 @@ router.route('/questions')
 		res.json(storage);
 	});
 
+router.route('/questions/:id')
+	.get(function(req, res) {
+		res.json(storage[req.params.id]);
+	})
+	.put(function(req, res) {
+		var id = req.params.id;
+		var question = req.body.question;
+		storage[id] = question;
+		res.json({message: "Question updated"});
+	})
+	.delete(function(req, res) {
+		var id = req.params.id;
+		delete storage[id];
+		res.json({message: "Question deleted"});
+	});
+
 app.use('/api', router);
 
 app.listen(8080);
